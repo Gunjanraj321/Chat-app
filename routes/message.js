@@ -10,13 +10,18 @@ router.get('/',(req,res)=>{
             console.log('file not exist')
             data='no chat exists'
         }
-        res.send(`${data}<form onsubmit="document.getElementById('username').value=localStorage.getItem('username')" action="/" method="post"><input type="text" name="message" id="message" placeholder="Enter your message..."><input type="hidden" name="username" id="username"> <button type="submit">send</button> </form> `)
+        res.send(`${data}<form onsubmit="document.getElementById('username').value=localStorage.getItem('username')" action="/" method="post">
+        <input type="text" name="message" id="message" placeholder="Enter your message...">
+        <input type="hidden" name="username" id="username">
+         <button type="submit">send</button> </form> `)
     })
 })
 
 router.post('/',(req,res)=>{
-    
+   
     fs.writeFile('username.txt',`${req.body.username}:${req.body.message}`,{flag:'a'},(err)=>console.log(err),res.redirect('/'));
+
+    console.log(req.body.username,req.body.message);
 })
 
 module.exports = router;
